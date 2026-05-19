@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="tabTitleDisplay">HOSTING. ANYTIME.</title>
+    <style>
+        :root {
+            --bg-color: #0b071e;
+            --card-bg: rgba(16, 12, 42, 0.75);
+            --card-border: rgba(255, 255, 255, 0.05);
+            --border-glow: rgba(245, 23, 223, 0.4);
+            
+            /* Typography Accents */
+            --title-color: #ffffff;
+            --tagline-color: #94a3b8;
+            --box-title-color: #ffffff;
+            --box-sub-color: #64748b;
+            --key-text-color: #00f2fe;
+            --key-box-bg: #04020c;
+            --key-box-border: rgba(255, 255, 255, 0.1);
+            
+            /* Dynamic Buttons State Controls */
+            --gen-btn-bg: #2b177d;
+            --gen-btn-text: #ffffff;
+            --copy-btn-bg: rgba(255, 255, 255, 0.08);
+            --copy-btn-text: #ffffff;
+            --tg-btn-bg: rgba(255, 255, 255, 0.03);
+            --tg-btn-text: #ffffff;
+            --wa-btn-bg: rgba(255, 255, 255, 0.03);
+            --wa-btn-text: #ffffff;
+            --admin-nav-btn-bg: rgba(255, 255, 255, 0.03);
+            --admin-nav-btn-text: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 20%, rgba(109, 40, 217, 0.15), transparent 60%);
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .top-bar {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 25px;
+        }
+
+        .btn-admin-nav {
+            background: var(--admin-nav-btn-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--admin-nav-btn-text);
+            padding: 10px 22px;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 800;
+            border-radius: 30px;
+            cursor: pointer;
+            letter-spacing: 1.5px;
+            transition: all 0.2s ease;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2.main-title {
+            font-size: 36px;
+            margin: 10px 0 10px 0;
+            font-weight: 800;
+            text-align: center;
+            color: var(--title-color);
+            letter-spacing: 0.5px;
+        }
+
+        .tagline {
+            color: var(--tagline-color);
+            font-size: 14px;
+            margin: 0 0 25px 0;
+            text-align: center;
+            line-height: 1.6;
+            padding: 0 15px;
+        }
+
+        /* CARD MAIN WRAPPER FRAMEWORK */
+        .container {
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            padding: 42px 30px;
+            border-radius: 32px;
+            box-sizing: border-box;
+            border: 2px solid var(--card-border);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 30px var(--border-glow);
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .section-label {
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--box-title-color);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .section-sub {
+            color: var(--box-sub-color);
+            font-size: 13px;
+            margin-bottom: 26px;
+            text-align: center;
+        }
+
+        .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .info-badge {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+        }
+
+        /* OUTPUT COMPONENT AREA GRID SYSTEM */
+        .output-wrapper {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+            align-items: center;
+            width: 100%;
+        }
+
+        .output-box {
+            flex: 1;
+            background: var(--key-box-bg);
+            padding: 26px 16px;
+            border-radius: 18px;
+            font-family: monospace;
+            font-size: 24px;
+            font-weight: 800;
+            border: 2px solid var(--key-box-border);
+            color: var(--key-text-color);
+            word-break: break-all;
+            text-align: center;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-copy-action {
+            background: var(--copy-btn-bg);
+            color: var(--copy-btn-text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 28px 22px;
+            font-size: 12px;
+            font-weight: 800;
+            border-radius: 18px;
+            cursor: pointer;
+            text-transform: uppercase;
+            display: none; 
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+        }
+        .btn-copy-action:hover { background: #ffffff; color: #000000; }
+
+        /* DOUBLE SIDE RUNTIME COUNTDOWN STRIPS */
+        .timer-status-strip {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin: -6px 0 26px 0;
+            padding: 0 4px;
+            box-sizing: border-box;
+        }
+        .ts-generated { color: #10b981; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+        .ts-expired { color: #f59e0b; font-size: 11px; font-weight: 800; text-align: right; text-transform: uppercase; }
+
+        /* ACTION INTEGRATIONS HOVER TRANSITIONS ELEMENTS */
+        .btn {
+            background: var(--gen-btn-bg);
+            color: var(--gen-btn-text);
+            border: none;
+            padding: 20px;
+            font-size: 15px;
+            border-radius: 18px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn:hover { transform: translateY(-1px); opacity: 0.95; }
+        .btn:disabled { background: #181333; color: #443f66; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* LARGER & HIGHLY COMPATIBLE SOCIAL CHANNELS INTERFACE BUTTONS */
+        .social-group { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 14px; 
+            width: 100%; 
+        }
+        .btn-social {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 20px 14px; /* Increased padding for slightly bigger buttons */
+            border-radius: 18px;
+            font-size: 13px; 
+            font-weight: 800; 
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        .btn-tg-style { background: var(--tg-btn-bg); color: var(--tg-btn-text); }
+        .btn-wa-style { background: var(--wa-btn-bg); color: var(--wa-btn-text); }
+        .btn-social:hover { transform: scale(1.02); background: rgba(255,255,255,0.08); }
+        
+        /* Ultra-compatible CSS-drawn vector icons instead of broken images */
+        .social-icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            position: relative;
+        }
+        .tg-vector-icon {
+            width: 100%;
+            height: 100%;
+            fill: #0088cc;
+        }
+        .wa-vector-icon {
+            width: 100%;
+            height: 100%;
+            fill: #25d366;
+        }
+
+        /* ADMINISTRATIVE MANAGEMENT PLATFORMS CONSOLE */
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 26px;
+            padding: 40px 24px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            box-sizing: border-box;
+            text-align: center;
+            display: none;
+        }
+        .admin-container {
+            margin-top: 20px;
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            text-align: left;
+        }
+        .admin-tab-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Expanded to 4 tabs for new API panel */
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 6px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+        }
+        .admin-tab {
+            background: transparent;
+            border: none;
+            color: #8a99ad;
+            padding: 12px 4px;
+            font-size: 10px;
+            font-weight: 800;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .admin-tab.active { background: #6d28d9; color: #ffffff; }
+        .panel-content { display: none; }
+        .panel-content.active { display: block; }
+
+        /* ALL UPPERCASE LABELS AND HEADERS FOR ADMIN INTERFACES */
+        .admin-container h3, .admin-container h4, .admin-container label {
+            text-transform: uppercase !important;
+            letter-spacing: 0.8px;
+        }
+
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .stat-card {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255,255,255,0.04);
+            padding: 18px;
+            border-radius: 16px;
+        }
+        .stat-card .label { font-size: 11px; color: #64748b; font-weight: 800; text-transform: uppercase; }
+        .stat-card .value { font-size: 26px; font-weight: 800; margin-top: 6px; color: #ffffff; }
+
+        .setting-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+        .setting-section h4 { margin: 0 0 14px 0; color: #00f2fe; font-size: 12px; text-transform: uppercase; }
+        label { display: block; margin-bottom: 6px; font-size: 10px; color: #94a3b8; font-weight: 800; }
+        
+        input[type="text"], input[type="password"], select {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+        .color-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 10px; }
+        .color-row input[type="color"] { border: none; width: 40px; height: 26px; border-radius: 4px; cursor: pointer; background: transparent; }
+
+        .footer-text { margin-top: 45px; font-size: 11px; color: #475569; letter-spacing: 1.5px; font-weight: 800; text-transform: uppercase; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <button class="btn-admin-nav" id="adminNavBtn" onclick="toggleAdminFlow()">ADMIN</button>
+    </div>
+
+    <div class="main-wrapper" id="mainDashboardView">
+        <h2 class="main-title" id="text-siteTitle">BALA X MOD</h2>
+        <p class="tagline" id="text-siteTagline">I am hosting anything, anytime — get your API key instantly.</p>
+        
+        <div class="container" id="mainGeneratorCard">
+            <div class="section-label" id="text-boxHeader">GENERATE YOUR KEY</div>
+            <div class="section-sub" id="text-boxSubHeader">One click • Valid 24 hours • Free</div>
+
+            <div class="badge-row">
+                <div class="info-badge">⚡ INSTANT</div>
+                <div class="info-badge">🔒 SECURE</div>
+                <div class="info-badge">🕒 24H VALID</div>
+            </div>
+
+            <div class="output-wrapper">
+                <div class="output-box" id="keyOutput">XXXX-XXXX-XXXX-XXXX</div>
+                <button class="btn-copy-action" id="copyBtnElement" onclick="copyGeneratedKey()">COPY</button>
+            </div>
+
+            <div class="timer-status-strip" id="timerStatusStrip">
+                <div class="ts-generated" id="text-statusGenerated">YOUR KEY GENERATED✅</div>
+                <div class="ts-expired" id="countdownTimerText">YOUR KEY WAS EXPIRED⌛ (24:00:00)</div>
+            </div>
+
+            <button class="btn" id="generateBtn" onclick="processKeyGeneration()">GENERATE KEY</button>
+        </div>
+
+        <div class="social-group">
+            <a href="https://t.me/yourchannel" id="tgLink" target="_blank" class="btn-social btn-tg-style">
+                <div class="social-icon-wrapper">
+                    <svg class="tg-vector-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.62.15-.15 2.7-2.46 2.75-2.67.01-.03.01-.14-.06-.2-.07-.06-.17-.04-.25-.02-.11.02-1.83 1.16-5.16 3.42-.49.34-.93.5-1.33.49-.44-.01-1.29-.25-1.92-.45-.77-.25-1.39-.39-1.34-.83.03-.23.35-.46.97-.71 3.79-1.65 6.32-2.74 7.59-3.27 3.61-1.5 4.36-1.76 4.85-1.77.11 0 .35.03.51.16.13.11.17.27.19.39.02.14.02.43 0 .54z"/></svg>
+                </div>
+                <span id="text-tgBtnLabel">JOIN TELEGRAM</span>
+            </a>
+            <a href="https://wa.me/yournumber" id="waLink" target="_blank" class="btn-social btn-wa-style">
+                <div class="social-icon-wrapper">
+                    <svg class="wa-vector-icon" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.82 14.02c-.26.74-1.28 1.35-1.77 1.41-.49.06-.98.09-3.14-.77-2.77-1.11-4.52-3.93-4.66-4.12-.14-.19-1.12-1.49-1.12-2.84 0-1.35.7-2.01.95-2.28.25-.26.54-.33.72-.33.18 0 .36.01.52.02.17.01.4.01.62.53.23.56.79 1.93.86 2.07.07.14.12.3.02.48-.1.19-.15.3-.3.48-.15.18-.32.4-.45.54-.15.15-.3.31-.13.6.17.29.75 1.24 1.62 2.02.18.16.35.33.54.48.57.48 1.01.43 1.34.05.33-.38 1.43-1.65 1.81-2.22.38-.57.77-.47 1.3-.28.53.19 3.39 1.6 3.98 1.9.59.29.98.44 1.13.7.15.25.15 1.47-.11 2.21z"/></svg>
+                </div>
+                <span id="text-waBtnLabel">JOIN WHATSAPP</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="auth-container" id="adminLoginCard">
+        <h3 style="margin:0 0 8px 0; font-size: 20px;">ADMIN ACCESS</h3>
+        <p style="color: #64748b; font-size: 13px; margin: 0 0 20px 0; text-transform: uppercase;">AUTHENTICATE TO MANAGE THE KEY PORTAL</p>
+        <label style="text-align: left;">USERNAME</label>
+        <input type="text" id="adminUserField" value="admin">
+        <label style="text-align: left;">PASSWORD</label>
+        <input type="password" id="adminPassField" placeholder="••••••••">
+        <button class="btn" onclick="authenticateAdminAccount()">LOGIN</button>
+        <button class="btn style-btn" style="background: transparent; border: 1px solid rgba(255,255,255,0.1); margin-top:10px;" onclick="closeAdminLoginCard()">CANCEL</button>
+    </div>
+
+    <div class="container admin-container" id="adminDashboardWrapper">
+        <h3 style="margin: 0 0 15px 0; font-weight: 800; font-size: 18px;">ADMIN CONSOLE</h3>
+        
+        <div class="admin-tab-bar">
+            <button class="admin-tab active" onclick="activateConsoleTab('stats')">📊 STATS</button>
+            <button class="admin-tab" onclick="activateConsoleTab('appearance')">🎨 THEME</button>
+            <button class="admin-tab" onclick="activateConsoleTab('config')">⚙️ CONFIG</button>
+            <button class="admin-tab" onclick="activateConsoleTab('api')">🔑 API SETS</button> </div>
+
+        <div id="tab-stats" class="panel-content active">
+            <div class="stats-grid">
+                <div class="stat-card"><div class="label">TOTAL KEYS</div><div class="value" id="stat-total">0</div></div>
+                <div class="stat-card"><div class="label">ACTIVE KEYS</div><div class="value" id="stat-active">0</div></div>
+                <div class="stat-card"><div class="label">EXPIRED</div><div class="value" id="stat-expired">0</div></div>
+                <div class="stat-card"><div class="label">TODAY</div><div class="value" id="stat-today">0</div></div>
+            </div>
+            <div class="setting-section">
+                <h4>SESSION OPERATIONAL STATUS</h4>
+                <button class="btn" style="background: #ef4444; font-size: 12px; padding: 12px;" onclick="clearStatsDatabase()">RESET DATABASE REGISTERS</button>
+            </div>
+        </div>
+
+        <div id="tab-appearance" class="panel-content">
+            <div class="setting-section" style="max-height: 240px; overflow-y: auto;">
+                <h4>✍️ STRINGS AND FRONTEND LABELS TEXT</h4>
+                <label>MAIN HEADLINE TITLE</label><input type="text" id="inp-siteTitle" oninput="liveUpdateText('siteTitle')">
+                <label>HEADLINE TAGLINE DESCRIPTIONS</label><input type="text" id="inp-siteTagline" oninput="liveUpdateText('siteTagline')">
+                <label>BOX LICENSE HEADER LABEL</label><input type="text" id="inp-boxHeader" oninput="liveUpdateText('boxHeader')">
+                <label>BOX SUB-HEADER INFO TEXT</label><input type="text" id="inp-boxSubHeader" oninput="liveUpdateText('boxSubHeader')">
+                <label>GENERATE ACTION BUTTON STRING</label><input type="text" id="inp-genBtnLabel" oninput="liveUpdateText('genBtnLabel')">
+                <label>TELEGRAM BUTTON LABEL STRING</label><input type="text" id="inp-tgBtnLabel" oninput="liveUpdateText('tgBtnLabel')">
+                <label>WHATSAPP BUTTON LABEL STRING</label><input type="text" id="inp-waBtnLabel" oninput="liveUpdateText('waBtnLabel')">
+                <label>GENERATED ACCENT MESSAGE SUCCESS</label><input type="text" id="inp-statusGenerated" oninput="liveUpdateText('statusGenerated')">
+            </div>
+
+            <div class="setting-section" style="max-height: 240px; overflow-y: auto;">
+                <h4>🎨 INDIVIDUAL OBJECT COMPONENT CHROMATIC MAP</h4>
+                <div class="color-row"><label>GLOBAL CANVAS BG</label><input type="color" id="col-bg" onchange="liveApplyColor('--bg-color', this.value)"></div>
+                <div class="color-row"><label>MAIN CONTAINER BG</label><input type="color" id="col-card" onchange="liveApplyColor('--card-bg', this.value, true)"></div>
+                <div class="color-row"><label>CONTAINER BORDER OUTLINE</label><input type="color" id="col-cardBorder" onchange="liveApplyColor('--card-border', this.value)"></div>
+                <div class="color-row"><label>CONTAINER RADIAL NEON GLOW</label><input type="color" id="col-glow" onchange="liveApplyColor('--border-glow', this.value, false, true)"></div>
+                <div class="color-row"><label>HEADLINE ACCENT TYPOGRAPHY</label><input type="color" id="col-title" onchange="liveApplyColor('--title-color', this.value)"></div>
+                <div class="color-row"><label>KEY CODE TEXT COLOR OUTPUT</label><input type="color" id="col-keyText" onchange="liveApplyColor('--key-text-color', this.value)"></div>
+                
+                <h5 style="margin: 12px 0 6px 0; font-size: 11px; color:#64748b;">BUTTONS COLOR CONFIG</h5>
+                <div class="color-row"><label>GENERATE KEY BUTTON CORE</label><input type="color" id="col-btnGen" onchange="liveApplyColor('--gen-btn-bg', this.value)"></div>
+                <div class="color-row"><label>COPY ACTION CONTROL OBJECT</label><input type="color" id="col-btnCopy" onchange="liveApplyColor('--copy-btn-bg', this.value)"></div>
+                <div class="color-row"><label>TELEGRAM NAVIGATION ANCHOR</label><input type="color" id="col-btnTg" onchange="liveApplyColor('--tg-btn-bg', this.value)"></div>
+                <div class="color-row"><label>WHATSAPP NAVIGATION ANCHOR</label><input type="color" id="col-btnWa" onchange="liveApplyColor('--wa-btn-bg', this.value)"></div>
+                <div class="color-row"><label>ADMIN TOGGLE ACTION BAR</label><input type="color" id="col-btnAdminNav" onchange="liveApplyColor('--admin-nav-btn-bg', this.value)"></div>
+            </div>
+            <button class="btn" style="font-size: 12px; padding: 12px;" onclick="saveSystemThemeState()">SAVE VISUAL CONFIGURATIONS</button>
+        </div>
+
+        <div id="tab-config" class="panel-content">
+            <div class="setting-section">
+                <h4>🔑 STRUCTURAL FORMAT SYSTEM RULES</h4>
+                <label>KEY SEED PREFIX STRING CONFIG</label>
+                <input type="text" id="cfg-keyPrefix" value="BALA">
+                <label>GENERATOR OUTPUT METRIC LENGTH</label>
+                <select id="cfg-keyLength">
+                    <option value="4">4 CHARACTERS (BALA-XXXX)</option>
+                    <option value="8" selected>8 CHARACTERS (BALA-XXXX-XXXX)</option>
+                    <option value="12">12 CHARACTERS (BALA-XXXX-XXXX-XXXX)</option>
+                </select>
+            </div>
+            <div class="setting-section">
+                <h4>🔗 ENDPOINT DESTINATIONS ROUTING MAP</h4>
+                <label>TELEGRAM CHANNEL HYPERLINK TARGET</label><input type="text" id="cfg-tgUrl" value="https://t.me/yourchannel">
+                <label>WHATSAPP CHANNEL HYPERLINK TARGET</label><input type="text" id="cfg-waUrl" value="https://wa.me/yournumber">
+            </div>
+            <button class="btn" style="font-size: 12px; padding: 12px;" onclick="saveKeyRoutingEngineConfigs()">SAVE GATEWAY CONFIGURATIONS</button>
+        </div>
+
+        <div id="tab-api" class="panel-content">
+            <div class="setting-section">
+                <h4>🔑 REAL WEBSITE API GATEWAY SETTINGS</h4>
+                <label>CORE INSTANCE API KEY</label>
+                <input type="text" id="cfg-apiMasterKey" placeholder="ENTER SYSTEM MASTER API KEY (E.G. AK_LIVE_...)">
+                
+                <label>SECURE INTERNAL API TOKEN</label>
+                <input type="text" id="cfg-apiMasterToken" placeholder="ENTER SECURE AUTH BEARER TOKEN STATUS">
+                
+                <label>SERVER ENDPOINT CALLBACK BACKEND URL</label>
+                <input type="text" id="cfg-apiEndpointUrl" placeholder="HTTPS://API.YOURDOMAIN.COM/V1/RESOLVER">
+            </div>
+            <button class="btn" style="font-size: 12px; padding: 12px; background: #10b981;" onclick="saveMasterApiEngineGateways()">SAVE API DEEP LOGIC MAPS</button>
+        </div>
+
+        <button class="btn" style="margin-top: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);" onclick="processConsoleLogout()">LOG OUT CONTROL PANEL</button>
+    </div>
+
+    <div class="footer-text" id="text-footerCredit">MODED BY BALA X MOD</div>
+
+    <script>
+        // System application parameters runtime register memory arrays
+        let systemSettings = {
+            texts: {
+                siteTitle: "BALA X MOD",
+                siteTagline: "I am hosting anything, anytime — get your API key instantly.",
+                boxHeader: "GENERATE YOUR KEY",
+                boxSubHeader: "One click • Valid 24 hours • Free",
+                genBtnLabel: "GENERATE KEY",
+                tgBtnLabel: "JOIN TELEGRAM",
+                waBtnLabel: "JOIN WHATSAPP",
+                statusGenerated: "YOUR KEY GENERATED✅"
+            },
+            colors: {
+                bg: "#0b071e", card: "#100c2a", cardBorder: "#221a44", glow: "#f517df",
+                title: "#ffffff", keyText: "#00f2fe", btnGen: "#2b177d", btnCopy: "#1f1a3a",
+                btnTg: "#130f2e", btnWa: "#130f2e", btnAdminNav: "#1c153a"
+            },
+            config: {
+                prefix: "BALA", length: "8",
+                tgUrl: "https://t.me/yourchannel", waUrl: "https://wa.me/yournumber",
+                apiKey: "", apiToken: "", apiUrl: ""
+            },
+            stats: { total: 0, active: 0, expired: 0, today: 0 }
+        };
+
+        let isConsoleLoggedIn = false;
+        let runningCountdownTimer;
+        let hasUserTriggeredGeneration = false;
+
+        window.onload = function() {
+            initSystemConfigurationDatabase();
+        };
+
+        function initSystemConfigurationDatabase() {
+            if (localStorage.getItem('bala_system_v2_db')) {
+                systemSettings = JSON.parse(localStorage.getItem('bala_system_v2_db'));
+            }
+            applyDatabaseDOMState();
+        }
+
+        function applyDatabaseDOMState() {
+            // Apply texts maps arrays values
+            for (let key in systemSettings.texts) {
+                const el = document.getElementById(`text-${key}`);
+                if (el) el.innerText = systemSettings.texts[key];
+                const inputEl = document.getElementById(`inp-${key}`);
+                if (inputEl) inputEl.value = systemSettings.texts[key];
+            }
+            
+            document.getElementById('generateBtn').innerText = systemSettings.texts.genBtnLabel;
+
+            // Apply dynamic programmatic styling configurations overrides
+            liveApplyColor('--bg-color', systemSettings.colors.bg);
+            liveApplyColor('--card-bg', systemSettings.colors.card, true);
+            liveApplyColor('--card-border', systemSettings.colors.cardBorder);
+            liveApplyColor('--border-glow', systemSettings.colors.glow, false, true);
+            liveApplyColor('--title-color', systemSettings.colors.title);
+            liveApplyColor('--key-text-color', systemSettings.colors.keyText);
+            liveApplyColor('--gen-btn-bg', systemSettings.colors.btnGen);
+            liveApplyColor('--copy-btn-bg', systemSettings.colors.btnCopy);
+            liveApplyColor('--tg-btn-bg', systemSettings.colors.btnTg);
+            liveApplyColor('--wa-btn-bg', systemSettings.colors.btnWa);
+            liveApplyColor('--admin-nav-btn-bg', systemSettings.colors.btnAdminNav);
+
+            // Sync structural parameters references within configuration fields setup profiles
+            document.getElementById('col-bg').value = systemSettings.colors.bg;
+            document.getElementById('col-card').value = systemSettings.colors.card;
+            document.getElementById('col-cardBorder').value = systemSettings.colors.cardBorder;
+            document.getElementById('col-glow').value = systemSettings.colors.glow;
+            document.getElementById('col-title').value = systemSettings.colors.title;
+            document.getElementById('col-keyText').value = systemSettings.colors.keyText;
+            document.getElementById('col-btnGen').value = systemSettings.colors.btnGen;
+            document.getElementById('col-btnCopy').value = systemSettings.colors.btnCopy;
+            document.getElementById('col-btnTg').value = systemSettings.colors.btnTg;
+            document.getElementById('col-btnWa').value = systemSettings.colors.btnWa;
+            document.getElementById('col-btnAdminNav').value = systemSettings.colors.btnAdminNav;
+
+            document.getElementById('tgLink').href = systemSettings.config.tgUrl;
+            document.getElementById('waLink').href = systemSettings.config.waUrl;
+            document.getElementById('cfg-tgUrl').value = systemSettings.config.tgUrl;
+            document.getElementById('cfg-waUrl').value = systemSettings.config.waUrl;
+            document.getElementById('cfg-keyPrefix').value = systemSettings.config.prefix;
+            document.getElementById('cfg-keyLength').value = systemSettings.config.length;
+
+            // Load advanced API database variables into administration visual fields elements
+            document.getElementById('cfg-apiMasterKey').value = systemSettings.config.apiKey || "";
+            document.getElementById('cfg-apiMasterToken').value = systemSettings.config.apiToken || "";
+            document.getElementById('cfg-apiEndpointUrl').value = systemSettings.config.apiUrl || "";
+
+            // Refresh runtime telemetry dashboard log charts tracking registers
+            document.getElementById('stat-total').innerText = systemSettings.stats.total;
+            document.getElementById('stat-active').innerText = systemSettings.stats.active;
+            document.getElementById('stat-expired').innerText = systemSettings.stats.expired;
+            document.getElementById('stat-today').innerText = systemSettings.stats.today;
+        }
+
+        function liveUpdateText(key) {
+            const val = document.getElementById(`inp-${key}`).value;
+            systemSettings.texts[key] = val;
+            const el = document.getElementById(`text-${key}`);
+            if (el) el.innerText = val;
+            if (key === 'genBtnLabel' && !hasUserTriggeredGeneration) {
+                document.getElementById('generateBtn').innerText = val;
+            }
+        }
+
+        function liveApplyColor(cssVar, hexValue, isRgbaCard = false, isGlowProperty = false) {
+            let processedOutputValue = hexValue;
+            if (isRgbaCard) {
+                const r = parseInt(hexValue.slice(1,3), 16);
+                const g = parseInt(hexValue.slice(3,5), 16);
+                const b = parseInt(hexValue.slice(5,7), 16);
+                processedOutputValue = `rgba(${r}, ${g}, ${b}, 0.75)`;
+            }
+            document.documentElement.style.setProperty(cssVar, processedOutputValue);
+            
+            if (isGlowProperty) {
+                document.getElementById('mainGeneratorCard').style.boxShadow = `0 30px 60px rgba(0, 0, 0, 0.6), 0 0 30px ${hexValue}`;
+            }
+
+            if(cssVar === '--bg-color') systemSettings.colors.bg = hexValue;
+            if(cssVar === '--card-bg') systemSettings.colors.card = hexValue;
+            if(cssVar === '--card-border') systemSettings.colors.cardBorder = hexValue;
+            if(cssVar === '--border-glow') systemSettings.colors.glow = hexValue;
+            if(cssVar === '--title-color') systemSettings.colors.title = hexValue;
+            if(cssVar === '--key-text-color') systemSettings.colors.keyText = hexValue;
+            if(cssVar === '--gen-btn-bg') systemSettings.colors.btnGen = hexValue;
+            if(cssVar === '--copy-btn-bg') systemSettings.colors.btnCopy = hexValue;
+            if(cssVar === '--tg-btn-bg') systemSettings.colors.btnTg = hexValue;
+            if(cssVar === '--wa-btn-bg') systemSettings.colors.btnWa = hexValue;
+            if(cssVar === '--admin-nav-btn-bg') systemSettings.colors.btnAdminNav = hexValue;
+        }
+
+        function processKeyGeneration() {
+            if (hasUserTriggeredGeneration) return;
+
+            const prefix = systemSettings.config.prefix || "BALA";
+            const structuralLength = parseInt(systemSettings.config.length) || 8;
+            const charactersPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let generatedSegmentString = "";
+
+            for (let i = 0; i < structuralLength; i++) {
+                if (i > 0 && i % 4 === 0) generatedSegmentString += "-";
+                generatedSegmentString += charactersPool.charAt(Math.floor(Math.random() * charactersPool.length));
+            }
+
+            const completeSecretKeyOutput = `${prefix}-${generatedSegmentString}`;
+            document.getElementById('keyOutput').innerText = completeSecretKeyOutput;
+
+            systemSettings.stats.total++;
+            systemSettings.stats.active++;
+            systemSettings.stats.today++;
+            localStorage.setItem('bala_system_v2_db', JSON.stringify(systemSettings));
+            
+            document.getElementById('copyBtnElement').style.display = "block";
+            document.getElementById('generateBtn').disabled = true;
+            hasUserTriggeredGeneration = true;
+
+            triggerDualStatusCountdownStrip();
+        }
+
+        function triggerDualStatusCountdownStrip() {
+            let traceRemainingSeconds = 24 * 60 * 60;
+            document.getElementById('timerStatusStrip').style.display = "flex";
+
+            runningCountdownTimer = setInterval(() => {
+                traceRemainingSeconds--;
+                if (traceRemainingSeconds <= 0) {
+                    clearInterval(runningCountdownTimer);
+                    document.getElementById('countdownTimerText').innerText = "YOUR KEY WAS EXPIRED⌛ (00:00:00)";
+                    systemSettings.stats.active--;
+                    systemSettings.stats.expired++;
+                    localStorage.setItem('bala_system_v2_db', JSON.stringify(systemSettings));
+                    return;
+                }
+
+                let hrs = Math.floor(traceRemainingSeconds / 3600);
+                let mins = Math.floor((traceRemainingSeconds % 3600) / 60);
+                let secs = traceRemainingSeconds % 60;
+
+                let formatH = hrs < 10 ? '0' + hrs : hrs;
+                let formatM = mins < 10 ? '0' + mins : mins;
+                let formatS = secs < 10 ? '0' + secs : secs;
+
+                document.getElementById('countdownTimerText').innerText = `YOUR KEY WAS EXPIRED⌛ (${formatH}:${formatM}:${formatS})`;
+            }, 1000);
+        }
+
+        function copyGeneratedKey() {
+            const currentKeyValue = document.getElementById('keyOutput').innerText;
+            navigator.clipboard.writeText(currentKeyValue).then(() => {
+                alert("KEY COPIED TO CLIPBOARD SUCCESSFULLY!");
+            });
+        }
+
+        function toggleAdminFlow() {
+            if (isConsoleLoggedIn) {
+                document.getElementById('adminDashboardWrapper').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                document.getElementById('mainDashboardView').style.display = "none";
+                document.getElementById('adminLoginCard').style.display = "block";
+            }
+        }
+
+        function closeAdminLoginCard() {
+            document.getElementById('adminLoginCard').style.display = "none";
+            document.getElementById('mainDashboardView').style.display = "flex";
+        }
+
+        function authenticateAdminAccount() {
+            const userVal = document.getElementById('adminUserField').value.trim();
+            const passVal = document.getElementById('adminPassField').value.trim();
+
+            if (userVal === "admin" && passVal === "admin123") {
+                isConsoleLoggedIn = true;
+                document.getElementById('adminLoginCard').style.display = "none";
+                document.getElementById('adminDashboardWrapper').style.display = "block";
+                applyDatabaseDOMState();
+            } else {
+                alert("INVALID ADMINISTRATOR SECURITY CREDENTIALS!");
+            }
+        }
+
+        function activateConsoleTab(tabId) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.panel-content').forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        function saveSystemThemeState() {
+            localStorage.setItem('bala_system_v2_db', JSON.stringify(systemSettings));
+            alert("VISUAL ELEMENTS STYLESHEETS PARAMETERS SAVED PERMANENTLY!");
+        }
+
+        function saveKeyRoutingEngineConfigs() {
+            systemSettings.config.prefix = document.getElementById('cfg-keyPrefix').value.trim().toUpperCase();
+            systemSettings.config.length = document.getElementById('cfg-keyLength').value;
+            systemSettings.config.tgUrl = document.getElementById('cfg-tgUrl').value.trim();
+            systemSettings.config.waUrl = document.getElementById('cfg-waUrl').value.trim();
+
+            localStorage.setItem('bala_system_v2_db', JSON.stringify(systemSettings));
+            applyDatabaseDOMState();
+            alert("APP INTERNAL ROUTING CONFIGURATIONS UPDATED SUCCESSFULLY!");
+        }
+
+        // CONTROL REGISTERS MAPPING SCRIPT TO SAVE ADVANCED API PARAMS
+        function saveMasterApiEngineGateways() {
+            systemSettings.config.apiKey = document.getElementById('cfg-apiMasterKey').value.trim();
+            systemSettings.config.apiToken = document.getElementById('cfg-apiMasterToken').value.trim();
+            systemSettings.config.apiUrl = document.getElementById('cfg-apiEndpointUrl').value.trim();
+
+            localStorage.setItem('bala_system_v2_db', JSON.stringify(systemSettings));
+            alert("REAL API PORTAL DATA SYSTEMS CONFIGURATION COMPLETED!");
+        }
+
+        function clearStatsDatabase() {
+            systemSettings.stats = { total: 0, active: 0, expired: 0, today: 0 };
+            localStorage.setItem('bala_system_v2_db', JSON.stringify(systemSettings));
+            applyDatabaseDOMState();
+            alert("DATABASE LOG REGISTER COUNTERS RESET SUCCESSFULLY!");
+        }
+
+        function processConsoleLogout() {
+            isConsoleLoggedIn = false;
+            document.getElementById('adminDashboardWrapper').style.display = "none";
+            document.getElementById('mainDashboardView').style.display = "flex";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
